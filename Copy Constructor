@@ -57,14 +57,12 @@ public class MyClass implements Cloneable {
     }
     
     // override the clone method
-    @Override
+  
+  @Override
     public Object clone() throws CloneNotSupportedException {
-        MyClass clone = (MyClass) super.clone();
-        // copy the instance variables
-        clone.x = this.x;
-        clone.y = this.y;
-        return clone;
+        return (MyClass) super.clone();
     }
+
     
     // other methods
     // ...
@@ -82,14 +80,5 @@ try {
     e.printStackTrace();
 }
 
-// verify that obj2 is a copy of obj1
-System.out.println(obj1.getX() + ", " + obj1.getY()); // output: 1, hello
-System.out.println(obj2.getX() + ", " + obj2.getY()); // output: 1, hello
-
-// update obj2 and verify that obj1 is not affected
-obj2.setX(2);
-obj2.setY("world");
-System.out.println(obj1.getX() + ", " + obj1.getY()); // output: 1, hello
-System.out.println(obj2.getX() + ", " + obj2.getY()); // output: 2, world
 
 In the code above, the clone method is used to create a copy of obj1 in obj2. Any changes made to obj2 will not affect obj1.
