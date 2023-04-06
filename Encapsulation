@@ -1,0 +1,130 @@
+Encapsulation is a principle of object-oriented programming that refers to the hiding of the internal details of an object from the outside world. It is achieved by making the internal state of an object private and providing public methods to interact with the object.
+
+Violations of encapsulation occur when the internal state of an object is directly accessed or modified from outside the object. This breaks the encapsulation principle and can lead to unexpected behavior and bugs in the code.
+
+
+is below example violets encapsulation?
+class Employee {
+    public String name;
+    public int age;
+    public String address;
+}
+
+// Violation
+Employee employee = new Employee();
+employee.name = "John Doe";
+employee.age = 30;
+employee.address = "123 Main Street";
+
+// Accessing internal state directly
+System.out.println("Name: " + employee.name);
+System.out.println("Age: " + employee.age);
+System.out.println("Address: " + employee.address);
+
+Ans: YES
+In the above example, the Employee class has three public variables name, age, and address. 
+These variables are directly accessible from outside the class, which violates the encapsulation principle.
+
+In the code that follows, the internal state of the Employee object is accessed directly and modified without any checks or validation. 
+This can lead to unexpected behavior and bugs in the code if the internal state of the object is modified in an unintended way.
+
+To fix this, the Employee class should make its variables private and provide public methods to access and modify them. 
+This will ensure that the internal state of the object is protected from direct access and can only be modified in a controlled way.
+class Employee {
+    private String name;
+    private int age;
+    private String address;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+}
+
+// Using the public getter and setter methods to access and modify the internal state of the Employee object
+Employee employee = new Employee();
+employee.setName("John Doe");
+employee.setAge(30);
+employee.setAddress("123 Main Street");
+
+System.out.println("Name: " + employee.getName());
+System.out.println("Age: " + employee.getAge());
+System.out.println("Address: " + employee.getAddress());
+
+
+In the modified code, we are using the public getter and setter methods to access and modify the internal state of the Employee object. 
+This ensures that the internal state of the object is protected from direct access and can only be modified in a controlled way.
+
+Here are some common violations of encapsulation:
+
+Directly accessing private variables: When private variables of an object are accessed directly from outside the object, 
+it violates encapsulation. This can be done using techniques such as reflection in Java or by using pointers in C++.
+
+Directly accessing private variables:
+
+class BankAccount {
+    private double balance;
+
+    public void transferFunds(BankAccount destinationAccount, double amount) {
+        // Directly accessing the balance variable of another BankAccount object
+        destinationAccount.balance += amount;
+        this.balance -= amount;
+    }
+}
+
+
+In the above code, the transferFunds method of the BankAccount class directly accesses the balance variable of another BankAccount object.
+This violates encapsulation, as the balance variable should only be accessible through the public methods of the BankAccount class.
+
+fix:
+To fix the encapsulation issue in the BankAccount class, we can change the access modifier of the balance variable to private,
+and provide public getter and setter methods to access and modify the balance variable respectively. 
+Here's how we can modify the BankAccount class:
+class BankAccount {
+    private double balance;
+
+    public void transferFunds(BankAccount destinationAccount, double amount) {
+        // Accessing the balance variable through a public getter method
+        destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+        this.setBalance(this.getBalance() - amount);
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+}
+
+In the modified BankAccount class, we have encapsulated the balance variable by making it private and providing public getter and setter methods
+to access and modify the variable. The transferFunds method now uses the public getter and setter methods to access and modify the balance variable 
+of the destination and source accounts, respectively. This ensures that the internal state of the BankAccount object is protected and can only be 
+accessed and modified through the public methods provided by the class.
+
+
+
+
+
+
+
