@@ -1,6 +1,8 @@
-Encapsulation is a principle of object-oriented programming that refers to the hiding of the internal details of an object from the outside world. It is achieved by making the internal state of an object private and providing public methods to interact with the object.
+Encapsulation is a principle of object-oriented programming that refers to the hiding of the internal details of an object from the outside world.
+It is achieved by making the internal state of an object private and providing public methods to interact with the object.
 
-Violations of encapsulation occur when the internal state of an object is directly accessed or modified from outside the object. This breaks the encapsulation principle and can lead to unexpected behavior and bugs in the code.
+Violations of encapsulation occur when the internal state of an object is directly accessed or modified from outside the object. 
+This breaks the encapsulation principle and can lead to unexpected behavior and bugs in the code.
 
 
 is below example violets encapsulation?
