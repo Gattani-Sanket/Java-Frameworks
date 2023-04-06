@@ -1,0 +1,47 @@
+what is String in java?
+In Java, a string is a sequence of characters. It is represented by the String class in the Java standard library. 
+Strings are used extensively in Java programming for representing text-based data, such as user input, file contents, and network communication.
+
+A string in Java is immutable, which means that its value cannot be changed once it has been created. 
+This is different from some other programming languages where strings can be modified in place. To change the value of a Java string, 
+new string must be created.
+
+Here is an example of how to create a string in Java:
+String message = "Hello, world!";
+
+what will happen in this case?
+
+String str1 = "Hello";
+String str2 = str1;
+str1 += " world";
+System.out.println(str1); // Output: Hello world
+System.out.println(str2); // Output: Hello
+
+
+In this example, we first create a string str1 with the value "Hello". We then create a new string str2 and assign it the value of str1.
+Next, we concatenate the string " world" to str1 using the += operator. Finally, we print out the values of both str1 and str2.
+
+The output of the program shows that str1 has been modified to "Hello world", but str2 still has the original value of "Hello". 
+This is because strings in Java are immutable - once a string is created, its value cannot be changed. When we concatenate " world" to str1,
+a new string is created with the value "Hello world", and str1 is updated to reference this new string. str2, on the other hand, still references 
+the original string "Hello", which has not been modified.
+
+How can i create mutable strings?
+In Java, strings are immutable by design. If you need to work with mutable text data, you can use a StringBuilder or StringBuffer class instead. 
+These classes allow you to modify the contents of the string without creating a new string object every time.
+
+Here's an example of how to use StringBuilder to create a mutable string:
+1) StringBuilder sb = new StringBuilder("Hello");
+sb.append(" world");
+String result = sb.toString();
+System.out.println(result); // Output: Hello world
+2) StringBuffer sb = new StringBuffer("Hello");
+sb.append(" world");
+String result = sb.toString();
+System.out.println(result); // Output: Hello world
+
+Note that StringBuilder is not thread-safe, which means that it should only be used in single-threaded environments. 
+If you need to work with mutable strings in a multi-threaded environment, you should use the StringBuffer class instead,
+which provides thread-safe operations.
+
+
