@@ -1,0 +1,138 @@
+is this a correct exaple of sigleton class?
+
+class Student{
+   private String name;
+   private int age;
+   private Student(){
+      this.name = "Raju";
+      this.age = 20;
+   }
+   public void display(){
+      System.out.println("Name of the Student: "+this.name );
+      System.out.println("Age of the Student: "+this.age );
+   }
+   public static Student getInstance() {
+      Student object = new Student();
+      return object;
+   }
+}
+public class PrivateConstructorExample{
+   public static void main(String args[]) {
+      Student obj = Student.getInstance();
+      obj.display();
+   }
+}
+Ans:
+Yes, the above code can be considered an example of a Singleton class because it restricts the instantiation of the class to only one object. This is achieved by making the constructor private, so that it cannot be called from outside the class, and providing a public static method called getInstance() which returns a single instance of the class.
+
+In the provided code, the getInstance() method creates an object of the Student class and returns it. Since the constructor is private, this method can only be called from within the class, ensuring that only one instance of the class can be created.
+
+Additionally, the Student class has a display() method which prints the name and age of the student. This method can be called on the single instance of the class returned by the getInstance() method.
+
+class Student{
+   public String name;
+   public int age;
+   private Student(){
+      this.name = "Raju";
+      this.age = 20;
+   }
+   public void display(){
+      System.out.println("Name of the Student: "+this.name );
+      System.out.println("Age of the Student: "+this.age );
+   }
+   public static Student getInstance() {
+      Student object = new Student();
+      return object;
+   }
+}
+public class PrivateConstructorExample{
+   public static void main(String args[]) {
+      Student obj = Student.getInstance();
+      Student obj1=Student.getInstance();
+      obj.display();
+   }
+}
+here, i can create multiple object of class, is this calss can be called as a singleton class?
+Ans: 
+No, in this example, multiple instances of the Student class can be created by calling the getInstance() method multiple times, which violates the Singleton pattern.
+
+A Singleton class should only allow one instance of the class to be created and return the same instance every time the getInstance() method is called.
+
+To ensure that only one instance of the class is created, you can modify the getInstance() method to check whether an instance of the class has already been created and return the existing instance instead of creating a new one. For example, you can use a private static field to store the instance of the class and check whether it is null before creating a new instance.
+
+Here's an example of a modified getInstance() method that ensures only one instance of the Student class is created:
+
+public static Student getInstance() {
+   if (instance == null) {
+      instance = new Student();
+   }
+   return instance;
+}
+
+but this is not threadsafe?
+Ans:
+You're correct, the previous implementation of getInstance() is not thread-safe, as multiple threads can access and create different instances of the Student class simultaneously.
+
+To make the implementation thread-safe, we can modify the getInstance() method by adding the synchronized keyword, which ensures that only one thread can access the method at a time.
+
+Here's an example of a modified getInstance() method that is thread-safe:
+public static synchronized Student getInstance() {
+   if (instance == null) {
+      instance = new Student();
+   }
+   return instance;
+}
+but making method sincronized will waste my time ? (Every thread will access method one by one)
+Yes, you're correct that using synchronized on the entire getInstance() method can cause performance issues due to locking and blocking other threads. One way to improve this is to use double-checked locking, which involves checking for the instance twice: once without locking and then again inside a synchronized block to ensure that only one instance is created.
+
+Here's an example implementation of a thread-safe singleton using double-checked locking:
+public class Student {
+   private static volatile Student instance;
+   public String name;
+   public int age;
+   
+   private Student() {
+      this.name = "Raju";
+      this.age = 20;
+   }
+
+   public static Student getInstance() {
+      if (instance == null) {
+         synchronized(Student.class) {
+            if (instance == null) {
+               instance = new Student();
+            }
+         }
+      }
+      return instance;
+   }
+
+   public void display() {
+      System.out.println("Name of the Student: " + this.name);
+      System.out.println("Age of the Student: " + this.age);
+   }
+}
+In this implementation, the getInstance() method first checks whether an instance of the Student class has already been created. If no instance exists, then it enters a synchronized block and checks again. If no instance exists in the synchronized block, it creates a new instance of the Student class. This implementation ensures that only one instance of the Student class is created even in a multi-threaded environment.
+
+Here's an example of how you can test the thread-safety of the getInstance() method using threads:
+public class ThreadSafeSingletonExample {
+   public static void main(String[] args) {
+      Thread t1 = new Thread(new Runnable() {
+         @Override
+         public void run() {
+            Student obj = Student.getInstance();
+            System.out.println("Thread 1: " + obj);
+         }
+      });
+      Thread t2 = new Thread(new Runnable() {
+         @Override
+         public void run() {
+            Student obj = Student.getInstance();
+            System.out.println("Thread 2: " + obj);
+         }
+      });
+      t1.start();
+      t2.start();
+   }
+}
+In this example, we create two threads that both call the getInstance() method of the Student class. Since the getInstance() method is thread-safe and uses double-checked locking, only one instance of the Student class is created and returned to both threads, ensuring that the output of the program shows the same object reference for both threads.
