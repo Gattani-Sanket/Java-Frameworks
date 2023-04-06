@@ -1,0 +1,94 @@
+Java does not provide a copy constructor by default, but you can create your own copy constructor in Java. A copy constructor is a constructor that 
+creates a new object with the same values as an existing object. 
+
+MyClass obj1 = new MyClass();
+MyClass obj2 = obj1;
+
+will this create new obj2 same as obj1?
+Ans:
+The code you provided will not create a copy of obj1 in obj2. Instead, obj2 will be referencing the same object as obj1. 
+This is because the = operator in Java does not create a new object or copy the contents of an object, but instead assigns a reference to an 
+existing object. (shallow copy)
+
+To create a copy constructor in Java, you need to define a constructor that takes an 
+object of the same class as a parameter and initializes the new object's instance variables with the values of the passed object's instance variables. 
+Here's an example:
+public class MyClass {
+    private int x;
+    private String y;
+    
+    public MyClass(int x, String y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    // copy constructor
+    public MyClass(MyClass obj) {
+        this.x = obj.x;
+        this.y = obj.y;
+    }
+    
+    // other constructors and methods
+}
+
+You can use the copy constructor to create a new object with the same values as an existing object:
+MyClass obj1 = new MyClass(1, "hello");
+MyClass obj2 = new MyClass(obj1); // using the copy constructor
+
+
+what if number of variable changes, is writing code for copying variables value not irritating. does java provide any functionality to do this job?
+Yes, if you have a lot of instance variables in a class, manually writing code to copy the values of each variable from one object to another can 
+be tedious and error-prone. Fortunately, Java provides a built-in mechanism called object cloning that allows you to create a copy of an object, 
+including its instance variables.
+
+To use object cloning, your class needs to implement the Cloneable interface and override the clone method. The clone method is a protected method 
+defined in the Object class, so you need to override it in your class to make it public and provide your own implementation for copying the object's 
+state.
+
+Here's an example of how to use object cloning:
+public class MyClass implements Cloneable {
+    private int x;
+    private String y;
+    
+    public MyClass(int x, String y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    // override the clone method
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        MyClass clone = (MyClass) super.clone();
+        // copy the instance variables
+        clone.x = this.x;
+        clone.y = this.y;
+        return clone;
+    }
+    
+    // other methods
+    // ...
+}
+In the code above, the MyClass class implements the Cloneable interface and overrides the clone method to create a new object with the same values as 
+the original object. The clone method first calls the super.clone() method to create a shallow copy of the object, then casts the result to the MyClass
+type and copies the values of the instance variables to the new object.
+
+You can use the clone method to create a copy of an object like this:
+MyClass obj1 = new MyClass(1, "hello");
+MyClass obj2 = null;
+try {
+    obj2 = (MyClass) obj1.clone();
+} catch (CloneNotSupportedException e) {
+    e.printStackTrace();
+}
+
+// verify that obj2 is a copy of obj1
+System.out.println(obj1.getX() + ", " + obj1.getY()); // output: 1, hello
+System.out.println(obj2.getX() + ", " + obj2.getY()); // output: 1, hello
+
+// update obj2 and verify that obj1 is not affected
+obj2.setX(2);
+obj2.setY("world");
+System.out.println(obj1.getX() + ", " + obj1.getY()); // output: 1, hello
+System.out.println(obj2.getX() + ", " + obj2.getY()); // output: 2, world
+
+In the code above, the clone method is used to create a copy of obj1 in obj2. Any changes made to obj2 will not affect obj1.
