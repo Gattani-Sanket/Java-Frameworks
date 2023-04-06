@@ -22,6 +22,33 @@ public class MyClass {
     }
 }
 
+can static methods access non-static variables?
+No, static methods cannot directly access non-static variables (also known as instance variables) of a class because non-static variables 
+are associated with instances of the class, whereas static methods are associated with the class itself.
+
+To access non-static variables inside a static method, you need to create an object of the class and then access the non-static variables through 
+the object reference. This is because non-static variables are specific to each instance of the class, so you need an instance of the class to 
+access them.
+
+Example:
+
+public class MyClass {
+    int nonStaticVariable = 10;
+    static int staticVariable = 20;
+
+    public static void myStaticMethod() {
+        // cannot directly access nonStaticVariable here
+        // need to create an object of the class
+        MyClass obj = new MyClass();
+        System.out.println("Non-static variable value: " + obj.nonStaticVariable);
+        System.out.println("Static variable value: " + staticVariable);
+    }
+}
+
+In the above example, the static method myStaticMethod() cannot directly access the non-static variable nonStaticVariable because it is not 
+associated with the class, but is instead associated with instances of the class. Therefore, we need to create an object of the class and use 
+that object to access the non-static variable.
+
 Static Blocks:
 Static blocks are used to initialize static variables or to perform any other static initialization. 
 They are executed only once when the class is loaded into the JVM. Static blocks are executed in the order they are defined in the class.
@@ -34,5 +61,107 @@ public class MyClass {
         System.out.println("Static block executed.");
     }
 }
-In summary, the static keyword is used to associate a variable, method, or block with the class rather than with instances of the class. 
-Static variables and methods can be accessed without creating an instance of the class, while static blocks are used for static initialization.
+
+when static block is executed?
+
+A static block in Java is executed only once when the class is loaded into memory by the Java Virtual Machine (JVM). 
+The JVM loads a class when it is first referenced by another class in the program. The static block is executed before 
+the execution of any constructor or the main method of the class.
+
+The static block is used for static initialization of variables or to perform any other static initialization before the class is used.
+You can define multiple static blocks in a class, and they are executed in the order they are defined in the class.
+
+Example:
+
+public class MyClass {
+    static int staticVariable;
+
+    static {
+        staticVariable = 10;
+        System.out.println("Static block executed.");
+    }
+
+    public static void main(String[] args) {
+        // main method
+    }
+}
+
+what is output of following:
+public class MyClass {
+    static int staticVariable;
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed.");
+    }
+}
+
+public class AnotherClass {
+    static {
+        System.out.println("AnotherClass static block executed.");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed.");
+    }
+}
+Ans:
+The output of running these two classes would be:
+
+Main method executed.
+
+This is because the static block in AnotherClass will only be executed when AnotherClass is loaded by the JVM,
+which will not happen when you run the main method of MyClass. The main method of MyClass simply prints "Main method executed" 
+to the console and does not load AnotherClass. Therefore, the static block in AnotherClass is not executed and does not produce any output.
+
+public class MyClass {
+    static int staticVariable;
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed.");
+        
+        try {
+            // Load AnotherClass dynamically and execute its static block
+            Class.forName("AnotherClass");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+public class AnotherClass {
+    static {
+        System.out.println("AnotherClass static block executed.");
+    }
+}
+how to load static block of anotherclass without creating object in mainclass?
+In Java, static blocks are executed when a class is loaded by the JVM. Therefore, to load the static block of AnotherClass, 
+you can simply reference a static member or method of AnotherClass in MyClass. 
+This will cause the JVM to load AnotherClass, which will in turn execute its static block.
+
+what if it don't contain static method or variable?
+you can use the Class.forName() method to load a class dynamically at runtime, which will cause its static block to be executed.
+
+The Class.forName() method takes a string argument that specifies the fully-qualified name of the class to be loaded. Here's an example of how you 
+can use this method to load  AnotherClass and execute its static block:
+
+public class MyClass {
+    static int staticVariable;
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed.");
+        
+        try {
+            // Load AnotherClass dynamically and execute its static block
+            Class.forName("AnotherClass");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+public class AnotherClass {
+    static {
+        System.out.println("AnotherClass static block executed.");
+    }
+}
+
