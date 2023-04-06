@@ -127,20 +127,93 @@ accessed and modified through the public methods provided by the class.
 
 Using getter and setter methods improperly: Getter and setter methods are used to access and modify the private variables of an object. 
 However, if these methods are improperly used to expose the internal state of an object, it violates encapsulation.
+class Person {
+    private int age;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Age cannot be negative");
+        }
+        this.age = age;
+    }
+}
+
+// Improper use of getter and setter methods
+Person person = new Person();
+person.setAge(-10);
+System.out.println(person.getAge()); // Outputs -10
+
+In the above code, the setAge method of the Person class checks if the age is negative before setting it. 
+However, if the method is called with a negative age, the age will still be set to the negative value. 
+This violates encapsulation, as the internal state of the Person object is being modified in an unexpected way.
 
 
 
 Inheriting private members: When a subclass inherits private members from its superclass and accesses them directly, it violates encapsulation. 
 Private members are meant to be accessed only within the class in which they are defined.
 
+class Animal {
+    private String name;
+}
+
+class Dog extends Animal {
+    public void setName(String name) {
+        // Inheriting the private name variable from the Animal class and accessing it directly
+        this.name = name;
+    }
+}
+In the above code, the Dog class inherits the private name variable from the Animal class and accesses it directly through the setName method. 
+This violates encapsulation, as private members should only be accessible within the class in which they are defined.
+
 
 
 Using global variables: Global variables can be accessed from any part of the code and can be modified by any function.
 This can lead to unexpected behavior and can violate encapsulation if the global variable is used to access or modify the internal state of an object.
+public class Calculator {
+    private double result;
+    
+    public void add(double num1, double num2) {
+        // Using a global variable to store the result
+        result = num1 + num2;
+    }
+    
+    public double getResult() {
+        return result;
+    }
+}
 
+// Improper use of global variable
+Calculator calculator = new Calculator();
+calculator.add(10.0, 5.0);
+System.out.println(calculator.result); // Outputs 15.0
+
+In the above code, the add method of the Calculator class uses a global variable to store the result of the calculation.
+This violates encapsulation, as the result variable should only be accessible through the public methods of the Calculator class.
 
 
 Modifying object state through side effects: When an object's state is modified through side effects, such as modifying a global variable or 
 calling another object's method, it violates encapsulation.
+class ShoppingCart {
+    private List<Item> items = new ArrayList<>();
+
+    public void addItem(Item item) {
+        items.add(item);
+        // Calling a method of the Item object to modify its state
+        item.setInCart(true);
+    }
+}
+
+// Modifying the state of an Item object through a side effect
+Item item = new Item("Product", 10.0);
+ShoppingCart cart = new ShoppingCart();
+cart.addItem(item);
+System.out.println(item.isInCart()); // Outputs true
+
+In the above code, the addItem method of the ShoppingCart class calls the setInCart method of the Item object to modify its state. 
+This violates encapsulation, as the state of the Item object is being modified
 
 
