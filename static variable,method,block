@@ -1,0 +1,38 @@
+In Java, static variables, static methods, and static blocks are three constructs that can be used with the static keyword.
+
+Static Variables:
+Static variables are declared with the keyword static and are associated with the class rather than with instances of the class. 
+They are initialized only once, at the time the class is loaded into the JVM. All instances of the class share the same static variable. 
+They can be accessed without creating an instance of the class.
+Example:
+public class MyClass {
+    static int staticVariable = 10;
+}
+
+Static Methods:
+Static methods are declared with the keyword static and belong to the class rather than to instances of the class. 
+They can be called without creating an instance of the class. Static methods cannot access instance variables directly, 
+but can access them through an instance of the class passed as a parameter.
+Example:
+public class MyClass {
+    static int staticVariable = 10;
+
+    public static void myStaticMethod() {
+        System.out.println("Static variable value: " + staticVariable);
+    }
+}
+
+Static Blocks:
+Static blocks are used to initialize static variables or to perform any other static initialization. 
+They are executed only once when the class is loaded into the JVM. Static blocks are executed in the order they are defined in the class.
+Example:
+public class MyClass {
+    static int staticVariable;
+
+    static {
+        staticVariable = 10;
+        System.out.println("Static block executed.");
+    }
+}
+In summary, the static keyword is used to associate a variable, method, or block with the class rather than with instances of the class. 
+Static variables and methods can be accessed without creating an instance of the class, while static blocks are used for static initialization.
