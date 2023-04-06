@@ -34,6 +34,7 @@ public class MyClass {
 You can use the copy constructor to create a new object with the same values as an existing object:
 MyClass obj1 = new MyClass(1, "hello");
 MyClass obj2 = new MyClass(obj1); // using the copy constructor
+This is called deep copy
 
 
 what if number of variable changes, is writing code for copying variables value not irritating. does java provide any functionality to do this job?
