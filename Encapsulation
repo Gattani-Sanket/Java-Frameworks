@@ -123,8 +123,22 @@ of the destination and source accounts, respectively. This ensures that the inte
 accessed and modified through the public methods provided by the class.
 
 
+Using getter and setter methods improperly: Getter and setter methods are used to access and modify the private variables of an object. 
+However, if these methods are improperly used to expose the internal state of an object, it violates encapsulation.
 
 
 
+Inheriting private members: When a subclass inherits private members from its superclass and accesses them directly, it violates encapsulation. 
+Private members are meant to be accessed only within the class in which they are defined.
+
+
+
+Using global variables: Global variables can be accessed from any part of the code and can be modified by any function.
+This can lead to unexpected behavior and can violate encapsulation if the global variable is used to access or modify the internal state of an object.
+
+
+
+Modifying object state through side effects: When an object's state is modified through side effects, such as modifying a global variable or 
+calling another object's method, it violates encapsulation.
 
 
