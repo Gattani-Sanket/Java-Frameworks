@@ -4,6 +4,7 @@ Inheritance in Java. (Quiz: https://www.geeksforgeeks.org/java-gq/inheritance-2-
 * In Java all classes inherit from the Object class directly or indirectly. The Object class is root of all classes. 
 * Multiple inheritance is not allowed in Java. 
 * Unlike C++, there is nothing like type of inheritance in Java where we can specify whether the inheritance is protected, public or private.
-
-
+*In Java, it is not allowed to do super.super. We can only access Grandparent's members using Parent: 
+https://www.geeksforgeeks.org/accessing-grandparents-member-in-java-using-super/
+*https://www.geeksforgeeks.org/overriding-tostring-method-in-java/
 
