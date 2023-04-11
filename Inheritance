@@ -8,3 +8,31 @@ Inheritance in Java. (Quiz: https://www.geeksforgeeks.org/java-gq/inheritance-2-
 https://www.geeksforgeeks.org/accessing-grandparents-member-in-java-using-super/
 *https://www.geeksforgeeks.org/overriding-tostring-method-in-java/
 
+what happen if two interface having same method name is inherited to class? (Multiple Inheritance)
+
+If two interfaces have a method with the same name and signature (i.e., the same method parameters), and a class implements both interfaces, then the class must provide an implementation of the method.
+
+In Java, this situation is called "interface method collision" and it can lead to a compilation error if the class doesn't provide an implementation for the method.
+
+Here's an example that illustrates interface method collision:
+interface MyInterface1 {
+    void myMethod();
+}
+
+interface MyInterface2 {
+    void myMethod();
+}
+
+class MyClass implements MyInterface1, MyInterface2 {
+    // Compilation error - myMethod() is not implemented
+}
+
+In this example, both MyInterface1 and MyInterface2 have a method named myMethod(). The MyClass class implements both interfaces, but it doesn't provide an implementation of myMethod(), so the code will not compile.
+
+To fix the compilation error, you must provide an implementation of myMethod() in the MyClass class, like this:
+class MyClass implements MyInterface1, MyInterface2 {
+    public void myMethod() {
+        // implementation of myMethod()
+    }
+}
+In this case, the implementation of myMethod() in MyClass satisfies the requirements of both interfaces.
