@@ -1,4 +1,6 @@
-Inheritance in Java. (Quiz: https://www.geeksforgeeks.org/java-gq/inheritance-2-gq/)
+Inheritance in Java
+https://www.geeksforgeeks.org/comparison-of-inheritance-in-c-and-java/
+(Quiz: https://www.geeksforgeeks.org/java-gq/inheritance-2-gq/)
 *Final methods cannot be overridden (Q2- quiz)
 * Like C++, when a function is static, runtime polymorphism doesn't happen.(Q3- quiz)
 * In Java all classes inherit from the Object class directly or indirectly. The Object class is root of all classes. 
