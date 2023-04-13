@@ -1,0 +1,30 @@
+Wrapper classes are classes that encapsulate the primitive data types in Java (such as int, double, boolean, etc.) and provide object-oriented representations of them. They are used when an object-oriented representation is needed instead of a primitive data type, for example, when storing them in collections or passing them as parameters to methods that require objects.
+
+Auto-boxing and auto-unboxing are features introduced in Java 5 that allow for automatic conversion between primitive data types and their corresponding wrapper classes. Auto-boxing allows a primitive data type to be automatically converted to its corresponding wrapper class when needed, while auto-unboxing allows a wrapper class to be automatically converted to its corresponding primitive data type when needed.
+
+Here are some examples of wrapper classes, auto-boxing, and auto-unboxing:
+
+Wrapper classes:
+
+Integer: represents an int value
+Double: represents a double value
+Boolean: represents a boolean value
+
+
+Auto-boxing example:
+
+int num = 10;
+Integer numObj = num; // auto-boxing - converting int to Integer
+
+Auto-unboxing example:
+Integer numObj = 20;
+int num = numObj; // auto-unboxing - converting Integer to int
+
+Functions:
+Wrapper classes provide many useful functions for manipulating the data they encapsulate. Here are some examples:
+
+Integer.parseInt(String s): converts a String to an int
+Double.parseDouble(String s): converts a String to a double
+Integer.valueOf(int i): returns an Integer object that represents the specified int value
+Double.valueOf(double d): returns a Double object that represents the specified double value
+Boolean.parseBoolean(String s): converts a String to a boolean value
