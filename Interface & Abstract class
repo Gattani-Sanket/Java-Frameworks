@@ -1,2 +1,3 @@
 Interface & Abstract class
 https://www.geeksforgeeks.org/interfaces-in-java/
+All variables in interfaces are by default final and static.
