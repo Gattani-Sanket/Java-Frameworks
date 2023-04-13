@@ -38,3 +38,55 @@ class MyClass implements MyInterface1, MyInterface2 {
     }
 }
 In this case, the implementation of myMethod() in MyClass satisfies the requirements of both interfaces.
+
+
+output of following:
+interface Animal {
+    void makeSound();
+}
+
+class Dog implements Animal {
+    public void makeSound() {
+        System.out.println("Bark");
+    }
+    
+    public void sound() {
+        System.out.println("Woof");
+    }
+}
+
+class Cat implements Animal {
+    public void makeSound() {
+        System.out.println("Meow");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal myAnimal = new Dog();
+        myAnimal.makeSound(); // Output: Bark
+        
+        Dog myDog = (Dog) myAnimal;
+        myDog.sound(); // Output: Woof
+        
+        myAnimal = new Cat();
+        myAnimal.makeSound(); // Output: Meow
+        
+        myAnimal.sound(); // compile time error
+       
+    }
+}
+
+
+If you try to call the sound() method on the myAnimal variable without casting it to a Dog object first, 
+you will get a compilation error, because the Animal interface does not define a sound() method.
+
+Here is an example of how to call the sound() method after casting myAnimal to a Dog object:
+Animal myAnimal = new Dog();
+myAnimal.makeSound(); // Output: Bark
+
+Dog myDog = (Dog) myAnimal;
+myDog.sound(); // Output: Woof
+
+Same would have been case if Animal is class.
+
