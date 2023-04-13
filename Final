@@ -1,0 +1,36 @@
+In Java, the "final" keyword can be used to make a variable, method, or class unchangeable or unextendable. 
+Here is an overview of how the "final" keyword can be used:
+
+Final variable: A final variable cannot be reassigned after it has been initialized. Its value remains constant throughout the program execution.
+final int MAX_VALUE = 100;
+MAX_VALUE = 200; // This will result in a compilation error.
+
+
+Final method: A final method cannot be overridden by any subclass. If a method is declared final in a superclass, 
+then any subclass must use the same implementation of that method.
+public class Parent {
+    public final void printMessage() {
+        System.out.println("Hello from Parent");
+    }
+}
+
+public class Child extends Parent {
+    public void printMessage() { // This will result in a compilation error.
+        System.out.println("Hello from Child");
+    }
+}
+
+Final class: A final class cannot be extended by any subclass. If a class is declared final, then it cannot be subclassed.
+final public class MyClass {
+    // Class implementation
+}
+
+public class MySubclass extends MyClass { // This will result in a compilation error.
+    // Subclass implementation
+}
+
+Using the "final" keyword can provide several benefits, including:
+
+Ensuring that a variable's value remains constant throughout the program execution.
+Preventing subclasses from changing the implementation of a method or extending a class.
+Optimizing the performance of code by allowing the compiler to make certain assumptions about the behavior of a final entity.
