@@ -165,3 +165,79 @@ public class AnotherClass {
     }
 }
 
+
+
+ what will be output of following?
+
+static  class OuterClass {
+    public void outerMethod() {
+        System.out.println("Hello from OuterClass");
+    }
+}
+public class AnotherClass {
+    public static void main(String[] args) {
+        OuterClass outer = new OuterClass();
+        outer.outerMethod();
+    }
+}
+
+If you try to compile the code you provided, you will receive a compile-time error because you cannot declare a class as static. 
+The error message will say something like: "Illegal modifier for the class OuterClass; only public, abstract & final are permitted".
+
+The static keyword is used to define class-level methods and variables that can be accessed without creating an instance of the class. 
+However, it cannot be used to define a top-level class like OuterClass.
+
+static can only be used with inner class (nested class)
+public class OuterClass {
+    private int outerVariable = 10;
+
+    public void outerMethod() {
+        System.out.println("Hello from OuterClass");
+    }
+
+    // Non-static inner class
+    public class InnerClass {
+        public void innerMethod() {
+            System.out.println("Hello from InnerClass");
+            System.out.println("outerVariable = " + outerVariable);
+            outerMethod();
+        }
+    }
+
+    // Static nested class
+    public static class StaticNestedClass {
+        public void staticMethod() {
+            System.out.println("Hello from StaticNestedClass");
+        }
+    }
+}
+
+In this example, OuterClass contains an instance variable outerVariable and a method outerMethod. It also contains a non-static inner class InnerClass, which has a method innerMethod that accesses the instance variable and method of the enclosing class.
+
+Additionally, OuterClass contains a static nested class StaticNestedClass, which has a method staticMethod that does not have access to the instance variable and method of the enclosing class.
+
+Here's how you can use these classes:
+public class AnotherClass {
+    public static void main(String[] args) {
+        // Create an instance of the outer class
+        OuterClass outer = new OuterClass();
+
+        // Create an instance of the inner class
+        OuterClass.InnerClass inner = outer.new InnerClass();
+
+        // Call the inner class method
+        inner.innerMethod();
+
+        // Call the static nested class method
+        OuterClass.StaticNestedClass staticNested = new OuterClass.StaticNestedClass();
+        staticNested.staticMethod();
+    }
+}
+
+The output of running the main method of the AnotherClass would be:
+
+Hello from InnerClass
+outerVariable = 10
+Hello from OuterClass
+Hello from StaticNestedClass
+
