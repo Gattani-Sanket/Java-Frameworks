@@ -86,3 +86,70 @@ In the run() method of MyRunnable, we call method1() and method2(), which will b
 In each method, we simply print the name of the thread, the method name, and a number from 0 to 4, sleep for one second, and repeat the process.
 
 Since we're using the same instance of MyRunnable for both threads, the output will be interleaved and not necessarily in order.
+
+Join() & syncronized
+public class ThreadJoinAndSynchronizedExample {
+  public static void main(String[] args) throws InterruptedException {
+    // create an instance of the class
+    MyRunnable myRunnable = new MyRunnable();
+
+    // create two threads and pass the same instance to them
+    Thread thread1 = new Thread(myRunnable, "Thread 1");
+    Thread thread2 = new Thread(myRunnable, "Thread 2");
+
+    // start the threads
+    thread1.start();
+    thread2.start();
+
+    // wait for both threads to complete
+    thread1.join();
+    thread2.join();
+
+    // print the final value of the counter
+    System.out.println("Final counter value: " + myRunnable.getCounter());
+  }
+
+  static class MyRunnable implements Runnable {
+    private int counter = 0;
+
+    public void run() {
+      for (int i = 0; i < 5; i++) {
+        incrementCounter();
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+    public synchronized void incrementCounter() {
+      counter++;
+      System.out.println(Thread.currentThread().getName() + " incremented counter to " + counter);
+    }
+
+    public int getCounter() {
+      return counter;
+    }
+  }
+}
+In this example, we create an instance of MyRunnable, which implements the Runnable interface. 
+We then create two threads and pass the same instance of MyRunnable to them.
+
+Each thread executes the run() method, which calls the incrementCounter() method five times, sleeping for one second between each increment. 
+The incrementCounter() method is synchronized, which means that only one thread can execute it at a time. This ensures that the counter variable is incremented correctly and avoids race conditions.
+
+After starting both threads, we use the join() method to wait for both threads to complete before printing the final value of the counter variable.
+Thread 1 incremented counter to 1
+Thread 1 incremented counter to 2
+Thread 2 incremented counter to 3
+Thread 1 incremented counter to 4
+Thread 2 incremented counter to 5
+Thread 1 incremented counter to 6
+Thread 2 incremented counter to 7
+Thread 1 incremented counter to 8
+Thread 2 incremented counter to 9
+Thread 1 incremented counter to 10
+Final counter value: 10
+Notice that the threads produce interleaved output, but the final value of the counter variable is always 10, which is the expected result.
+This is because we used the synchronized keyword to ensure that only one thread could execute the incrementCounter() method at a time. If we didn't use synchronized, the final value of counter would likely be less than 10 due to race conditions.
