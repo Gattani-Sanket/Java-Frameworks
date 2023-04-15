@@ -1,1 +1,88 @@
 
+public class MultiThreadExample {
+  public static void main(String[] args) {
+    // create two threads
+    Thread thread1 = new MyThread("Thread 1");
+    Thread thread2 = new MyThread("Thread 2");
+
+    // start the threads
+    thread1.start();
+    thread2.start();
+  }
+
+  static class MyThread extends Thread {
+    private final String name;
+
+    public MyThread(String name) {
+      this.name = name;
+    }
+
+    public void run() {
+      for (int i = 0; i < 5; i++) {
+        System.out.println(name + ": " + i);
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+}
+In this example, we create two threads by extending the Thread class and overriding its run() method. 
+We then create an instance of each thread and start them using the start() method.
+
+In the run() method, we simply print the name of the thread and a number from 0 to 4, sleep for one second, and repeat the process. 
+Since we're running two threads concurrently, the output will be interleaved and not necessarily in order.
+
+Using Runnable interface
+
+public class MultiThreadExample {
+  public static void main(String[] args) {
+    // create an instance of the class
+    MyRunnable myRunnable = new MyRunnable();
+
+    // create two threads and pass the instance to them
+    Thread thread1 = new Thread(myRunnable, "Thread 1");
+    Thread thread2 = new Thread(myRunnable, "Thread 2");
+
+    // start the threads
+    thread1.start();
+    thread2.start();
+  }
+
+  static class MyRunnable implements Runnable {
+    public void run() {
+      method1();
+      method2();
+    }
+
+    public void method1() {
+      for (int i = 0; i < 5; i++) {
+        System.out.println(Thread.currentThread().getName() + " method1: " + i);
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+    public void method2() {
+      for (int i = 0; i < 5; i++) {
+        System.out.println(Thread.currentThread().getName() + " method2: " + i);
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+}
+In this example, we create an instance of the MyRunnable class, which implements the Runnable interface. We then create two threads and pass the same instance of MyRunnable to them.
+
+In the run() method of MyRunnable, we call method1() and method2(), which will be executed by the two threads concurrently.
+In each method, we simply print the name of the thread, the method name, and a number from 0 to 4, sleep for one second, and repeat the process.
+
+Since we're using the same instance of MyRunnable for both threads, the output will be interleaved and not necessarily in order.
