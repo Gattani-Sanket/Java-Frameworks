@@ -1,0 +1,44 @@
+Encapsulation and abstraction are two important concepts in object-oriented programming that help to create more robust and maintainable software.
+
+Encapsulation refers to the idea of hiding the internal implementation details of a class from the outside world, and instead providing a well-defined interface for interacting with that class. This helps to ensure that the internal state of the class cannot be modified by external code, which can help to prevent bugs and ensure the correctness of the program.
+
+Abstraction, on the other hand, refers to the idea of representing complex systems or concepts in a simplified way. In programming, this often involves creating abstract classes or interfaces that define a set of methods or properties that can be used by other classes. By doing this, we can create a high-level view of a system that can be used to reason about it without needing to understand all of the low-level implementation details.
+
+Let's take a look at a Java example that demonstrates both encapsulation and abstraction:
+
+
+public abstract class Animal {
+  private String name;
+  
+  public Animal(String name) {
+    this.name = name;
+  }
+  
+  public String getName() {
+    return name;
+  }
+  
+  public abstract void makeSound();
+}
+
+public class Dog extends Animal {
+  public Dog(String name) {
+    super(name);
+  }
+  
+  public void makeSound() {
+    System.out.println("Woof!");
+  }
+}
+
+In this example, we have an abstract Animal class that defines a private name field and a public getName() method. 
+This is an example of encapsulation, because the internal implementation details of the Animal class (i.e., the name field) are hidden from the
+outside world, and instead a well-defined interface (i.e., the getName() method) is provided.
+
+The Animal class also defines an abstract makeSound() method, which is an example of abstraction. This method is defined in the abstract class, 
+but its implementation is left to the subclasses (such as Dog). This allows us to create a high-level view of an animal that can make a sound without 
+needing to know exactly how each individual animal makes its sound.
+
+The Dog class extends the Animal class and provides an implementation for the makeSound() method. This demonstrates how abstraction can be used to 
+simplify the representation of a complex system (i.e., animals that make sounds) while still allowing for customization and variation in the 
+implementation details (i.e., different types of animals making different sounds).
