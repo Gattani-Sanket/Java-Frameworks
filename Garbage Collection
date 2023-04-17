@@ -1,1 +1,94 @@
+In Java, the garbage collector is automatically called by the JVM (Java Virtual Machine) when it determines that memory needs to be reclaimed. 
+However, you can request a garbage collection explicitly by calling the System.gc() method.
+
+It's important to note that calling System.gc() does not guarantee that garbage collection will happen immediately, or even at all. 
+The JVM may choose to ignore the request if it determines that garbage collection is not necessary at that time.
+
+If you need to ensure that certain resources are released, you should use the try-with-resources construct or manually call a close() method to release the resources when you're done with them. 
+This is typically a better approach than relying on explicit garbage collection.
+
+ here's an example of how to use the System.gc() method to request garbage collection:
+ public class GarbageCollectionExample {
+    public static void main(String[] args) {
+        // Create some objects
+        Object obj1 = new Object();
+        Object obj2 = new Object();
+        
+        // Let's make obj1 null and dereference it
+        obj1 = null;
+        
+        // Request garbage collection explicitly
+        System.gc();
+        
+        // Sleep for a while to give the garbage collector a chance to run
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        // Now, obj1 should be garbage collected, but obj2 still exists
+        System.out.println("obj1 has been garbage collected");
+        System.out.println("obj2 is still alive");
+    }
+}
+
+In this example, we create two objects obj1 and obj2. We then make obj1 null, which means it is no longer referenced by any variables.
+We then explicitly request garbage collection by calling System.gc().
+We then sleep for a second to give the garbage collector a chance to run.
+After that, we check that obj1 has been garbage collected by printing a message to the console.
+We also verify that obj2 is still alive by printing another message to the console.
+
+Another way to suggest the garbage collector to run in Java is by using the Runtime.getRuntime().gc() method. 
+This method is equivalent to calling System.gc(). However, calling the System.gc() method is usually preferred, as it is platform-independent 
+and may be more efficient than the Runtime.getRuntime().gc() method.
+
+Here's an example of how to use the Runtime.getRuntime().gc() method to suggest garbage collection:
+
+public class GarbageCollectionExample {
+    public static void main(String[] args) {
+        // Create some objects
+        Object obj1 = new Object();
+        Object obj2 = new Object();
+        
+        // Let's make obj1 null and dereference it
+        obj1 = null;
+        
+        // Suggest garbage collection explicitly
+        Runtime.getRuntime().gc();
+        
+        // Sleep for a while to give the garbage collector a chance to run
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        // Now, obj1 should be garbage collected, but obj2 still exists
+        System.out.println("obj1 has been garbage collected");
+        System.out.println("obj2 is still alive");
+    }
+}
+
+In this example, we create two objects obj1 and obj2. We then make obj1 null, which means it is no longer referenced by any variables. 
+We then suggest garbage collection by calling Runtime.getRuntime().gc().
+
+We then sleep for a second to give the garbage collector a chance to run. 
+After that, we check that obj1 has been garbage collected by printing a message to the console. We also verify that obj2 is still alive by 
+printing another message to the console.
+
+In Java, the finalize() method is called by the garbage collector before an object is garbage collected. The finalize() method is a protected method defined in the Object class, so all classes in Java have the finalize() method inherited.
+
+When the garbage collector determines that an object is no longer referenced, it first checks if the object has a finalize() method. If the object does have a finalize() method, the garbage collector adds the object to a queue of objects to be finalized. 
+At some point later, a background thread in the JVM will execute the finalize() method for each object in the queue.
+
+It's important to note that the finalize() method is not guaranteed to be called, and it's not recommended to rely on it to release resources. 
+Instead, it's best to use the try-with-resources construct or manually call a close() method to release resources when you're done with them.
+
+Here's an example of how to define a finalize() method in a class:
+
+In this example, we override the finalize() method in MyClass. 
+Inside the finalize() method, we release any resources held by the object. 
+We also call the finalize() method of the superclass Object by calling super.finalize() inside a finally block to ensure that the superclass's finalization code is executed as well.
+
 
