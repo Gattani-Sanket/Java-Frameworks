@@ -1,4 +1,5 @@
-
+Life cycle of a thread: https://www.javatpoint.com/life-cycle-of-a-thread
+Question related to multi-threading: https://www.interviewbit.com/multithreading-interview-questions/
 public class MultiThreadExample {
   public static void main(String[] args) {
     // create two threads
