@@ -53,3 +53,68 @@ public class FileHandlingExample {
         }
     }
 }
+
+########## How to write and read objects in file
+import java.io.*;
+
+public class ObjectFileExample {
+    public static void main(String[] args) {
+        // create a Student object
+        Student student = new Student("John", "Doe", 20);
+
+        // write the object to a file
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("student.dat"));
+            out.writeObject(student);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // read the object from the file
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("student.dat"));
+            Student readStudent = (Student) in.readObject();
+            in.close();
+
+            System.out.println("Name: " + readStudent.getFirstName() + " " + readStudent.getLastName());
+            System.out.println("Age: " + readStudent.getAge());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Student implements Serializable {
+    private String firstName;
+    private String lastName;
+    private int age;
+
+    public Student(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+This program defines a Student class that implements the Serializable interface, indicating that objects of this class can be written to 
+and read from streams. The program then creates a Student object and writes it to a file called "student.dat" using an ObjectOutputStream.
+
+To read the object from the file, the program creates an ObjectInputStream and reads the object from the file. 
+The readObject method returns an Object, so we need to cast it to a Student object. Finally, the program prints out the properties 
+of the Student object that was read from the file.
+
+Note that when writing objects to a file, you need to make sure that the objects are serializable.
+If an object is not serializable, you will get a NotSerializableException at runtime.
