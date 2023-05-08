@@ -1,1 +1,42 @@
 
+import java.util.*;
+public class Test {
+	public static void main(String[] args) {
+		PosSpeed[] arr=new PosSpeed[3];
+		
+		arr[0]=new PosSpeed(5,4);
+		arr[1]=new PosSpeed(0,4);
+		arr[2]=new PosSpeed(3,4);
+		Arrays.sort(arr);
+		
+		System.out.println(arr[0].position);
+	}
+	
+
+}
+
+class PosSpeed implements Comparable<PosSpeed>{
+	int position;
+	int speed;
+	PosSpeed(int position, int speed)
+	{
+		this.position=position;
+		this.speed=speed;
+	}
+	
+	@Override
+	public int compareTo(PosSpeed o) {
+	    if (position < o.position) {
+	        return -1;
+	    } else if (position > o.position) {
+	        return 0;
+	    } else {
+	        return 1;
+	    }
+	}
+
+	public String toString(PosSpeed obj)
+	{
+		return obj.position+":"+obj.speed;
+	}
+}
