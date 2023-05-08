@@ -118,3 +118,15 @@ of the Student object that was read from the file.
 
 Note that when writing objects to a file, you need to make sure that the objects are serializable.
 If an object is not serializable, you will get a NotSerializableException at runtime.
+
+
+###what will happen if student class does not implement serializable in above code?
+
+
+If the Student class in the previous example does not implement the Serializable interface, then trying to write a Student object to a file using an ObjectOutputStream will result in a NotSerializableException at runtime.
+
+The Serializable interface is a marker interface, which means it does not have any methods that need to be implemented. Instead, it indicates to the Java runtime that the class can be serialized, or converted to a byte stream that can be written to a file or sent over a network.
+
+If a class does not implement Serializable, then the Java runtime will not allow instances of that class to be serialized or deserialized. When an attempt is made to serialize an object of a class that does not implement Serializable, a NotSerializableException will be thrown at runtime. This exception indicates that the object cannot be serialized and that the programmer needs to either make the class implement Serializable or find a different way to persist the object's data.
+
+In short, if the Student class does not implement Serializable, the program will throw a NotSerializableException when trying to write a Student object to a file using an ObjectOutputStream.
