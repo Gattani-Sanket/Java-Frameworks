@@ -1,1 +1,68 @@
+//Service
+In the context of servlets, the service method is a core method provided by the HttpServlet class. 
+It is responsible for handling client requests and generating responses.
+*******html
+<html>
+<body>
+    <form action="addition" method="post">
+        Number 1: <input type="text" name="num1"><br>
+        Number 2: <input type="text" name="num2"><br>
+        <input type="submit" value="Calculate Sum">
+    </form>
+</body>
+</html>
+
+******servlet
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class AdditionServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int num1 = Integer.parseInt(request.getParameter("num1"));
+        int num2 = Integer.parseInt(request.getParameter("num2"));
+
+        int sum = num1 + num2;
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+        out.println("<h2>Sum: " + sum + "</h2>");
+        out.println("</body></html>");
+    }
+}
+*** web.xml
+ <servlet>
+        <servlet-name>AdditionServlet</servlet-name>
+        <servlet-class>com.example.AdditionServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdditionServlet</servlet-name>
+        <url-pattern>/addition</url-pattern>
+    </servlet-mapping>
+    
+    
+//doGet()
+In Java servlets, the doGet() method is one of the HTTP-specific methods provided by the HttpServlet class. 
+It is called by the servlet container (e.g., Apache Tomcat) to handle HTTP GET requests from clients.
+the data is typically appended to the URL as query parameters. 
+To access these parameters in your server-side code, you can use the getParameter() method of the HttpServletRequest object.
+//Just write doGet insted of service and in html <form action="addition" method="get">
+
+
+//doPost()
+In Java servlets, the doPost() method is one of the HTTP-specific methods provided by the HttpServlet class. 
+It is called by the servlet container (e.g., Apache Tomcat) to handle HTTP POST requests from clients.
+the data is typically in request body. 
+To access these parameters in your server-side code, you can use the getParameter() method of the HttpServletRequest object.
+//Just write doPost() insted of service and in html <form action="addition" method="post">
+
 
