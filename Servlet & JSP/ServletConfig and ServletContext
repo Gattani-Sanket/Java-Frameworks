@@ -1,1 +1,61 @@
+In Java servlets, ServletConfig and ServletContext are two important interfaces provided by the Servlet API that allow you to 
+access configuration information and share data across servlets in a web application.
+
+ServletConfig:
+
+The ServletConfig interface provides access to the configuration information of a specific servlet.
+It is created by the servlet container and passed to the servlet during initialization.
+You can use ServletConfig to retrieve initialization parameters defined for a specific servlet in the web deployment descriptor (web.xml) or 
+through annotations.
+Typical usage includes accessing parameters such as database connection details, external service URLs, or any other configuration specific 
+to the servlet.
+Declaration in web.xml:
+<servlet>
+    <servlet-name>MyServlet</servlet-name>
+    <servlet-class>com.example.MyServlet</servlet-class>
+    <init-param>
+        <param-name>param1</param-name>
+        <param-value>value1</param-value>
+    </init-param>
+</servlet>
+
+Accessing ServletConfig in the servlet:
+public class MyServlet extends HttpServlet {
+    private ServletConfig servletConfig;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        servletConfig = config;
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        String param1 = servletConfig.getInitParameter("param1");
+        // Use the parameter value as needed
+    }
+}
+
+ServletContext:
+
+The ServletContext interface provides access to the servlet context, which represents the entire web application.
+It is created by the servlet container and made available to all servlets within the application.
+You can use ServletContext to share data and resources among servlets, access web application parameters, obtain information about the 
+server environment, and perform tasks such as logging or database connection pooling.
+Typical usage includes sharing common data or resources among servlets, such as a database connection pool, configuration settings, or 
+application-wide variables.
+Declaration in web.xml (no specific declaration is required for ServletContext):
+<context-param>
+    <param-name>databaseUrl</param-name>
+    <param-value>jdbc:mysql://localhost:3306/mydb</param-value>
+</context-param>
+
+
+public class MyServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        ServletContext servletContext = getServletContext();
+        String databaseUrl = servletContext.getInitParameter("databaseUrl");
+        // Use the databaseUrl parameter as needed
+    }
+}
+
+
 
